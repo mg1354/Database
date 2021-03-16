@@ -27,7 +27,7 @@ public class Gui {
 
 	@SuppressWarnings("deprecation")
 	public Gui() {
-		
+
 		frame = new JFrame("Wellcome to bibliotek!");
 		panel = new JPanel();
 		frame.setSize(300, 300);
@@ -57,49 +57,51 @@ public class Gui {
 		panel.add(button);
 
 		button.addActionListener(e -> {
-			        user = getUser();
-			        pass= password.getText();
-					
-			        try {
+			user = getUser();
+			pass = password.getText();
 
-						Class.forName("com.mysql.cj.jdbc.Driver");
+			try {
 
-						final String url = "jdbc:mysql:///bibliotek";
-						
+				Class.forName("com.mysql.cj.jdbc.Driver");
 
-						con = DriverManager.getConnection(url, user, pass);
+				final String url = "jdbc:mysql:///bibliotek";
 
-						Gui.success.setText("Wellcome to bibliotek!");
-						
-//						Gui.frame.setVisible(false);
-						
-						new Gui1(con);
-						new Gui2(con);
-						new Gui3(con);
-						
-					}
+				con = DriverManager.getConnection(url, user, pass);
 
-					catch (Exception e1) {
-						Gui.success.setText("Login unsuccessful!");
+				Gui.success.setText("Wellcome to bibliotek!");
 
-					}
-			    
+				Gui.frame.setVisible(false);
+
+				if (user.equals("Viggo") || user.equals("Pelle") || user.equals("Bosse") || user.equals("Explorer")
+						|| user.equals("Elof")) {
+					new Gui1(con);
+				} else if (user.equals("Asta") || user.equals("Farbror")) {
+					new Gui2(con);
+				} else if (user.equals("Ebba")) {
+					new Gui2(con);
+					new Gui3(con);
+				}
+
+			}
+
+			catch (Exception e1) {
+				Gui.success.setText("Login unsuccessful!");
+
+			}
+
 		});
 
-	success=new JLabel("");
-	success.setBounds(10,180,200,25);
-	panel.add(success);
-	
-	
-	
-	
+		success = new JLabel("");
+		success.setBounds(10, 180, 200, 25);
+		panel.add(success);
+
 		frame.setVisible(true);
 
-}
+	}
+
 	public static String getUser() {
 		Gui.user = userText.getText();
-	    return user;
-	  }
+		return user;
+	}
 
-	 
 }
